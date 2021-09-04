@@ -1,0 +1,21 @@
+{
+  "name": "telzir-fale-mais",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node build/shared/http/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "build": "babel src --extensions \".js,.ts\" --out-dir build",
+    "test": "jest --silent=false"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "description": "Fale Mais is an application developed by Telzir Telecom to help its customers calculate the price of their phone calls",
+  "repository": "https://github.com/ercioalendre/telzir-fale-mais",
+  "author": "Ercio Alendre"
+}
