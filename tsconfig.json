@@ -10,6 +10,7 @@
     "noImplicitAny": true,
     "strictPropertyInitialization": false,
     "moduleResolution": "node",
+    "sourceMap": true,
     "baseUrl": ".",
     "paths": {
       "@tests/*": [
@@ -46,6 +47,7 @@
     "build"
   ],
   "include": [
-    "src/**/*"
-, "src/__tests__"  ]
+    "src/**/*",
+    "src/__tests__"
+  ]
 }
