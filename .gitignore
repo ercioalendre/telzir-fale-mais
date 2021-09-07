@@ -2,20 +2,11 @@
 .vscode/
 node_modules/
 build/
+dist/
 coverage/
 
-dist
 ormlogs.log
 yarn-error.log
 
-uploads/*
-!uplods/.gitkeep
-
-temp/*
-!temp/.gitkeep
-
 logs/*
 !logs/.gitkeep
-
-.docker/dbdata/*
-!.docker/dbdata/.gitkeep
