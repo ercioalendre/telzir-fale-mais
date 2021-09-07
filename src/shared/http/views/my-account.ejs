@@ -29,10 +29,6 @@
                     <img src="/images/logo.svg" alt="Fale Mais Logo">
                 </a>
                 <div class="buttons">
-                    <div class="button outlined" id="room-id" data-id="<%= roomId %>">
-                        #<%= roomId %>
-                        <img src="/images/copy.svg" alt="Copiar número da sala">
-                    </div>
                     <a href="/logout" class="button grey">
                         <img src="/images/logout.svg" alt="Sair">
                         Sair
@@ -89,25 +85,6 @@
                     </div>
                 </section>
             </main>
-        </div>
-        <!-- MODAL -->
-        <div class="modal-wrapper">
-            <div class="modal">
-                <h2>Delete this question</h2>
-                <p>Are you sure you wanna delete this question?</p>
-                <form action="#" method="POST">
-                    <label for="password" class="scr-only">Insert the room password</label>
-                    <input id="password" name="password" type="password" placeholder="Insert the room password" required>
-                    <input id="questionAction" name="questionAction" type="hidden">
-                    <input id="questionId" name="questionId" type="hidden">
-                    <div class="buttons">
-                        <div class="button grey cancel">
-                            Cancel
-                        </div>
-                        <button class="red">Delete</button>
-                    </div>
-                </form>
-            </div>
         </div>
     </body>
 </html>
