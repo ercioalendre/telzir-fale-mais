@@ -48,7 +48,8 @@
     "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",
-    "typeorm": "^0.2.37"
+    "typeorm": "^0.2.37",
+    "winston": "^3.3.3"
   },
   "description": "Fale Mais is an application developed by Telzir Telecom to help its customers calculate the price of their phone calls",
   "repository": "https://github.com/ercioalendre/telzir-fale-mais",
