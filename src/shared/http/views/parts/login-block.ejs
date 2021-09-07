@@ -1,0 +1,26 @@
+<section>
+    <h2>Acesse a sua conta</h2>
+    <form action="/login/create-session" method="POST">
+        <label for="phone" class="scr-only">Telefone</label>
+        <input type="text" minlength="15" name="phone" id="phone" placeholder="Telefone" required>
+        <label for="password" class="scr-only">Senha</label>
+        <input type="password" name="password" id="password" placeholder="Senha" required>
+        <button onclick="sendForm()">
+            <img src="/images/enter-room.svg" alt="Entrar">
+            Entrar
+        </button>
+    </form>
+</section>
+
+<div class="separator">
+    <div></div>
+    <div>ou</div>
+    <div></div>
+</div>
+
+<section>
+    <h2>Crie uma agora mesmo</h2>
+    <a href="signup" class="button outlined">
+        <img src="/images/users.svg" alt="Criar uma nova conta"> Criar uma nova conta
+    </a>
+</section>

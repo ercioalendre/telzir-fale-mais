@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <!-- Metas -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Title -->
+        <title>Fale Mais by Telzir | Minha Conta</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/styles/main.css">
+        <link rel="stylesheet" href="/styles/room.css">
+        <link rel="stylesheet" href="/styles/modal.css">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+        <!-- Scripts -->
+        <script src="/scripts/main.js" defer type="module"></script>
+    </head>
+    <body>
+        <div id="room" class="content">
+            <header>
+                <a href="/">
+                    <img src="/images/logo.svg" alt="Fale Mais Logo">
+                </a>
+                <div class="buttons">
+                    <div class="button outlined" id="room-id" data-id="<%= roomId %>">
+                        #<%= roomId %>
+                        <img src="/images/copy.svg" alt="Copiar número da sala">
+                    </div>
+                    <a href="/logout" class="button grey">
+                        <img src="/images/logout.svg" alt="Sair">
+                        Sair
+                    </a>
+                </div>
+            </header>
+            <main>
+                <section id="question-form">
+                  <div>
+                    <% if (msgType==="error" && msgContent) { %>
+                    <div class="message-wrapper error" id="message-wrapper">
+                      <div class="message-content">
+                        <p>
+                          <img src="/images/error.svg" alt="Warning">
+                          <%= msgContent; %>
+                        </p>
+                        <img src="/images/close.svg" alt="Close" class="close-error" id="close-error">
+                      </div>
+                    </div>
+                    <% }; %>
+                    <% if (msgType==="success" && msgContent) { %>
+                      <div class="message-wrapper success" id="message-wrapper">
+                        <div class="message-content">
+                          <p>
+                            <img src="/images/success.svg" alt="Success">
+                            <%= msgContent; %>
+                          </p>
+                          <img src="/images/close.svg" alt="Warning" class="close-error" id="close-error">
+                        </div>
+                      </div>
+                    <% }; %>
+                  </div>
+
+                    <h2>Ask me a question</h2>
+                    <form action="/room/<%= roomId %>/new-question" method="POST">
+                        <label class="scr-only" for="question">What you wanna ask me?</label>
+                        <textarea name="question" id="question" placeholder="What you wanna ask me?"></textarea>
+                        <footer>
+                            <div>
+                                <img src="/images/lock.svg" alt="Lock">
+                                This is an anonymous question.
+                            </div>
+                            <button>Send</button>
+                        </footer>
+                    </form>
+                </section>
+
+                <section id="questions">
+                    <h2 class="scr-only">Community questions</h2>
+                    <div class="questions">
+                        <% if(!isThereAnyQuestion){ %>
+                            <%- include('parts/no-questions'); %>
+                        <% }; %>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <!-- MODAL -->
+        <div class="modal-wrapper">
+            <div class="modal">
+                <h2>Delete this question</h2>
+                <p>Are you sure you wanna delete this question?</p>
+                <form action="#" method="POST">
+                    <label for="password" class="scr-only">Insert the room password</label>
+                    <input id="password" name="password" type="password" placeholder="Insert the room password" required>
+                    <input id="questionAction" name="questionAction" type="hidden">
+                    <input id="questionId" name="questionId" type="hidden">
+                    <div class="buttons">
+                        <div class="button grey cancel">
+                            Cancel
+                        </div>
+                        <button class="red">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
