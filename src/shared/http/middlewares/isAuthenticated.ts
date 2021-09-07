@@ -7,6 +7,7 @@ interface ITokenPayLoad {
   iat: number;
   ext: number;
   sub: string;
+  name: string;
 }
 
 export default function isAuthenticated(
@@ -22,10 +23,13 @@ export default function isAuthenticated(
 
   try {
     const decodedToken = verify(token, jwt.secret);
-    const { sub } = decodedToken as ITokenPayLoad;
+    const { sub, name } = decodedToken as ITokenPayLoad;
 
-    req.user = {
+    const firstName = name.split(" ")[0];
+
+    res.locals.user = {
       id: sub,
+      name: firstName,
     };
 
     if (req.originalUrl === "/my-account") {

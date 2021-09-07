@@ -26,7 +26,11 @@ class CreateUserSessionService {
       );
     }
 
-    const token = sign({ id: user.id }, jwt.secret, {
+    res.locals.user = {
+      name: user.name,
+    };
+
+    const token = sign({ name: user.name }, jwt.secret, {
       subject: user.id,
       expiresIn: jwt.expiresIn,
     });
@@ -35,6 +39,7 @@ class CreateUserSessionService {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
     });
+
     res.redirect("/my-account");
   }
 }

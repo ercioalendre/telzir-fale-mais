@@ -1,0 +1,81 @@
+<body>
+  <div id="room" class="content">
+    <header>
+      <a href="/">
+        <img src="/images/logo.svg" alt="Fale Mais Logo" />
+      </a>
+      <div class="buttons">
+        <p>Olá, <%= user.name %>!</p>
+        <a href="/logout" class="button grey">
+          <img src="/images/logout.svg" alt="Sair" />
+          Sair
+        </a>
+      </div>
+    </header>
+    <main>
+      <section id="question-form">
+        <div>
+          <% if (msgType==="error" && msgContent) { %>
+          <div class="message-wrapper error" id="message-wrapper">
+            <div class="message-content">
+              <p>
+                <img src="/images/error.svg" alt="Warning" />
+                <%= msgContent; %>
+              </p>
+              <img
+                src="/images/close.svg"
+                alt="Close"
+                class="close-error"
+                id="close-error"
+              />
+            </div>
+          </div>
+          <% }; %> <% if (msgType==="success" && msgContent) { %>
+          <div class="message-wrapper success" id="message-wrapper">
+            <div class="message-content">
+              <p>
+                <img src="/images/success.svg" alt="Success" />
+                <%= msgContent; %>
+              </p>
+              <img
+                src="/images/close.svg"
+                alt="Warning"
+                class="close-error"
+                id="close-error"
+              />
+            </div>
+          </div>
+          <% }; %>
+        </div>
+
+        <h2>Ask me a question</h2>
+        <form action="#">
+          <label class="scr-only" for="question">What you wanna ask me?</label>
+          <textarea
+            name="question"
+            id="question"
+            placeholder="What you wanna ask me?"
+          ></textarea>
+          <footer>
+            <div>
+              <img src="/images/lock.svg" alt="Lock" />
+              This is an anonymous question.
+            </div>
+            <button>Send</button>
+          </footer>
+        </form>
+      </section>
+
+      <section id="questions">
+        <h2 class="scr-only">Community questions</h2>
+        <div class="questions">
+          <div class="no-questions">
+            <img src="/images/no-questions.svg" alt="No questions yet" />
+            <p>No questions here yet...</p>
+            <p>Be the first to ask a question!</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>

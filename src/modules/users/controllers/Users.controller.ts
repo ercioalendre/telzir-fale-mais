@@ -3,24 +3,16 @@ import createUserService from "@modules/users/services/CreateUser.service";
 import createUserSessionService from "@modules/users/services/CreateUserSession.service";
 import AppError from "@shared/errors/AppError";
 
-interface IExpress {
-  req: Request;
-  res: Response;
-}
-
 class UsersController {
-  public async index({ req, res }: IExpress): Promise<void> {
-    res.render("my-account", {
-      roomId: 123456,
-      isThereAnyQuestion: 0,
-      questions: 0,
-      questionsRead: 0,
+  public async index(req: Request, res: Response): Promise<void> {
+    res.render("main", {
+      page: "my-account",
       msgType: "success",
       msgContent: "Conta criada com sucesso!",
     });
   }
 
-  public async login({ req, res }: IExpress): Promise<void> {
+  public async login(req: Request, res: Response): Promise<void> {
     res.render("main", {
       page: "login-block",
       msgType: "",
@@ -28,7 +20,7 @@ class UsersController {
     });
   }
 
-  public async signup({ req, res }: IExpress): Promise<void> {
+  public async signup(req: Request, res: Response): Promise<void> {
     res.render("main", {
       page: "new-user",
       msgType: "",
@@ -38,11 +30,11 @@ class UsersController {
     });
   }
 
-  public async create({ req, res }: IExpress): Promise<void> {
+  public async create(req: Request, res: Response): Promise<void> {
     await createUserService.execute(res);
   }
 
-  public async createUserSession({ req, res }: IExpress): Promise<void> {
+  public async createUserSession(req: Request, res: Response): Promise<void> {
     const authHeader = req.body;
     if (authHeader) {
       const { phone, password } = authHeader;

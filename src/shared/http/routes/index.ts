@@ -10,7 +10,7 @@ router.get("/", isUserLoggedIn, (req, res) => res.redirect("/login"));
 router.get("/signup", isUserLoggedIn, UsersController.signup);
 router.post("/signup", checkNewUserForm, UsersController.create);
 router.get("/login", isUserLoggedIn, UsersController.login);
-router.post("/login/create-session", UsersController.createUserSession);
+router.post("/login", UsersController.createUserSession);
 router.get("/logout", UsersController.logout);
 router.get("/my-account", isAuthenticated, UsersController.index);
 
