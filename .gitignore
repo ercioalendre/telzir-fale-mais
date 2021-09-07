@@ -10,3 +10,6 @@ yarn-error.log
 
 logs/*
 !logs/.gitkeep
+
+src/database/*
+!src/database/.gitkeep
