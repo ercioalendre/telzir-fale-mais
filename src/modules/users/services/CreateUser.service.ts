@@ -20,16 +20,16 @@ class CreateUserService {
     ): Promise<string | unknown> {
       return res.render("main", {
         page: "new-user",
-        msgType,
         msgContent,
         inputError,
+        msgType,
         formDataWithoutPassword,
       });
     }
 
     if (res.locals.message) {
-      const { msgType, msgContent, inputError } = res.locals.message;
-      renderSignUpPage(msgType, msgContent, inputError);
+      const { msgContent, inputError } = res.locals.message;
+      renderSignUpPage(msgContent, inputError);
       return false;
     }
 
