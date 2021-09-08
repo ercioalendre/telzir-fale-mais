@@ -4,7 +4,7 @@ import UsersRepository from "@modules/users/typeorm/repositories/Users.repositor
 import createUserSessionService from "@modules/users/services/CreateUserSession.service";
 import { hash } from "bcryptjs";
 import { Response } from "express";
-import renderPageWithError from "@modules/users/utils/renderPageWithError";
+import renderPageWithMessage from "@modules/users/utils/renderPageWithMessage";
 
 class CreateUserService {
   public async execute(res: Response): Promise<void | boolean> {
@@ -15,12 +15,12 @@ class CreateUserService {
 
     if (res.locals.message.msgContent) {
       const { msgContent, inputError } = res.locals.message;
-      renderPageWithError(msgContent, inputError, res);
+      renderPageWithMessage(msgContent, inputError, res);
       return false;
     }
 
     if (emailExists) {
-      renderPageWithError(
+      renderPageWithMessage(
         "Este endereço de e-mail já está cadastrado.",
         "email",
         res,
@@ -30,7 +30,7 @@ class CreateUserService {
     }
 
     if (phoneExists) {
-      renderPageWithError(
+      renderPageWithMessage(
         "Este número de telefone já está cadastrado.",
         "phone",
         res,

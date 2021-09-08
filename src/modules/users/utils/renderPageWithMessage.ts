@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-export default async function renderPageWithError(
+export default async function renderPageWithMessage(
   msgContent: string,
   inputError: string | string[],
   res: Response,

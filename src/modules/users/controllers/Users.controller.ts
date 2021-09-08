@@ -7,8 +7,10 @@ class UsersController {
   public async index(req: Request, res: Response): Promise<void> {
     res.render("main", {
       page: "my-account",
-      msgType: "success",
-      msgContent: "Conta criada com sucesso!",
+      msgType: "",
+      msgContent: "",
+      inputError: "",
+      formData: {},
     });
   }
 

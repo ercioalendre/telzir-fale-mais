@@ -9,7 +9,7 @@ interface ITokenPayLoad {
   sub: string;
 }
 
-export default function isAuthenticated(
+export default function isUserLoggedIn(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -21,9 +21,9 @@ export default function isAuthenticated(
       const decodedToken = verify(token, jwt.secret);
       const { sub } = decodedToken as ITokenPayLoad;
 
-      req.user = {
-        id: sub,
-      };
+      // req.user = {
+      //   id: sub,
+      // };
 
       res.redirect("/my-account");
     } catch {

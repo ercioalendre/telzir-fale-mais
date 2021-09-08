@@ -4,7 +4,7 @@ import UsersRepository from "@modules/users/typeorm/repositories/Users.repositor
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { Response } from "express";
-import renderPageWithError from "@modules/users/utils/renderPageWithError";
+import renderPageWithMessage from "@modules/users/utils/renderPageWithMessage";
 
 interface IRequest {
   phone: string;
@@ -23,14 +23,16 @@ class CreateUserSessionService {
     const userPassword = user?.password || "";
     const passwordComparison = await compare(password, userPassword);
 
+    console.log(res.locals.message);
+
     if (res.locals.message) {
       const { msgContent, inputError } = res.locals.message;
-      renderPageWithError(msgContent, inputError, res, "login-block");
+      renderPageWithMessage(msgContent, inputError, res, "login-block");
       return false;
     }
 
     if (!user || !passwordComparison) {
-      renderPageWithError(
+      renderPageWithMessage(
         "O número de telefone ou senha está incorreto.",
         "",
         res,
@@ -53,7 +55,13 @@ class CreateUserSessionService {
       httpOnly: true,
     });
 
-    res.redirect("/my-account");
+    renderPageWithMessage(
+      "Conta criada com sucesso!",
+      "",
+      res,
+      "my-account",
+      "success",
+    );
   }
 }
 
