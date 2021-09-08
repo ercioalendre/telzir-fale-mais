@@ -1,10 +1,10 @@
 import jwt from "@config/auth/jwt";
 import { getCustomRepository } from "typeorm";
-import AppError from "@shared/errors/AppError";
 import UsersRepository from "@modules/users/typeorm/repositories/Users.repository";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { Response } from "express";
+import renderPageWithError from "@modules/users/utils/renderPageWithError";
 
 interface IRequest {
   phone: string;
@@ -13,17 +13,30 @@ interface IRequest {
 }
 
 class CreateUserSessionService {
-  public async execute({ phone, password, res }: IRequest): Promise<void> {
+  public async execute({
+    phone,
+    password,
+    res,
+  }: IRequest): Promise<void | boolean> {
     const usersRepository = getCustomRepository(UsersRepository);
     const user = await usersRepository.findByPhone(phone);
     const userPassword = user?.password || "";
     const passwordComparison = await compare(password, userPassword);
 
+    if (res.locals.message) {
+      const { msgContent, inputError } = res.locals.message;
+      renderPageWithError(msgContent, inputError, res, "login-block");
+      return false;
+    }
+
     if (!user || !passwordComparison) {
-      throw new AppError(
-        "The phone number or password you entered is incorrect.",
-        401,
+      renderPageWithError(
+        "O número de telefone ou senha está incorreto.",
+        "",
+        res,
+        "login-block",
       );
+      return false;
     }
 
     res.locals.user = {
