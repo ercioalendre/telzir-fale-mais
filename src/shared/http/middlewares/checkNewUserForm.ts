@@ -7,6 +7,7 @@ export default function checkNewUserForm(
 ): void {
   const { name, email, phone, password } = req.body;
   const formData = { name, email, phone, password };
+  const inputError: string[] = [];
   Object.entries(formData).forEach(([key, val]) => {
     if (!val || val == "" || val == undefined) {
       let message;
@@ -24,10 +25,17 @@ export default function checkNewUserForm(
         message = "O nome completo inserido é inválido";
       }
 
+      inputError.push(key);
+
+      message =
+        inputError.length == 1
+          ? message
+          : "Um ou mais valores inseridos são inválidos.";
+
       res.locals.message = {
         msgType: "error",
         msgContent: message,
-        inputError: key,
+        inputError,
       };
     }
   });
