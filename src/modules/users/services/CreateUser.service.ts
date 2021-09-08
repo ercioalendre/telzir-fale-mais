@@ -4,42 +4,37 @@ import UsersRepository from "@modules/users/typeorm/repositories/Users.repositor
 import createUserSessionService from "@modules/users/services/CreateUserSession.service";
 import { hash } from "bcryptjs";
 import { Response } from "express";
+import renderPageWithError from "@modules/users/utils/renderPageWithError";
 
 class CreateUserService {
   public async execute(res: Response): Promise<void | boolean> {
-    const { name, phone, email } = res.locals.formData;
-    const { password, ...formDataWithoutPassword } = res.locals.formData;
+    const { name, phone, email, password } = res.locals.formData;
     const usersRepository = getCustomRepository(UsersRepository);
     const phoneExists = await usersRepository.findByPhone(phone);
     const emailExists = await usersRepository.findByEmail(email);
 
-    async function renderSignUpPage(
-      msgContent: string,
-      inputError: string | string[],
-      msgType = "error",
-    ): Promise<string | unknown> {
-      return res.render("main", {
-        page: "new-user",
-        msgContent,
-        inputError,
-        msgType,
-        formDataWithoutPassword,
-      });
-    }
-
-    if (res.locals.message) {
+    if (res.locals.message.msgContent) {
       const { msgContent, inputError } = res.locals.message;
-      renderSignUpPage(msgContent, inputError);
+      renderPageWithError(msgContent, inputError, res);
       return false;
     }
 
     if (emailExists) {
-      renderSignUpPage("Este endereço de e-mail já está cadastrado.", "email");
+      renderPageWithError(
+        "Este endereço de e-mail já está cadastrado.",
+        "email",
+        res,
+        "new-user",
+      );
       return false;
     }
 
     if (phoneExists) {
-      renderSignUpPage("Este número de telefone já está cadastrado.", "phone");
+      renderPageWithError(
+        "Este número de telefone já está cadastrado.",
+        "phone",
+        res,
+      );
       return false;
     }
 
@@ -61,9 +56,7 @@ class CreateUserService {
         res,
       });
     } else {
-      throw new AppError(
-        "Something went wrong during the creation of your account.",
-      );
+      throw new AppError("Algo deu errado durante a criação de sua conta.");
     }
   }
 }

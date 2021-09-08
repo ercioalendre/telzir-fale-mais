@@ -17,6 +17,8 @@ class UsersController {
       page: "login-block",
       msgType: "",
       msgContent: "",
+      inputError: "",
+      formData: {},
     });
   }
 
