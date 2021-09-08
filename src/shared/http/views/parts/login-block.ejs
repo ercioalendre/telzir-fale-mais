@@ -2,7 +2,7 @@
   <div id="home" class="content">
     <header>
       <a href="/">
-        <img src="/images/logo.svg" alt="Fale Mais Logo">
+        <img src="/images/logo.svg" alt="Fale Mais Logo" />
       </a>
     </header>
 
@@ -13,15 +13,21 @@
 
     <main>
       <div class="container">
+        <%- include("message-box"); %>
         <section>
           <h2>Acesse a sua conta</h2>
           <form action="/login" method="POST">
             <label for="phone" class="scr-only">Telefone</label>
-            <input type="text" minlength="15" name="phone" id="phone" placeholder="Telefone" required>
+            <input type="text" name="phone" id="phone" placeholder="Telefone" <%
+            if (inputError.includes("phone")) { %>style="border: .2rem solid
+            var(--red);"<% }; %> <% if (formData.phone) { %>value="<%-
+            formData.phone; %>"<% }; %>>
             <label for="password" class="scr-only">Senha</label>
-            <input type="password" name="password" id="password" placeholder="Senha" required>
+            <input type="password" name="password" id="password"
+            placeholder="Senha" <% if (inputError.includes("password")) {
+            %>style="border: .2rem solid var(--red);"<% }; %>>
             <button onclick="sendForm()">
-              <img src="/images/enter-room.svg" alt="Entrar">
+              <img src="/images/enter-room.svg" alt="Entrar" />
               Entrar
             </button>
           </form>
@@ -36,7 +42,8 @@
         <section>
           <h2>Crie uma agora mesmo</h2>
           <a href="signup" class="button outlined">
-            <img src="/images/users.svg" alt="Criar uma nova conta"> Criar uma nova conta
+            <img src="/images/users.svg" alt="Criar uma nova conta" /> Criar uma
+            nova conta
           </a>
         </section>
       </div>
