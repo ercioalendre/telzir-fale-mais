@@ -1,0 +1,32 @@
+<section id="message-box">
+  <% if (msgType && msgContent) { %> <% if (msgType==="error" && msgContent) {
+  %>
+  <div class="message-wrapper error" id="message-wrapper">
+    <div class="message-content">
+      <img src="/images/error.svg" alt="Warning" />
+      <p><%= msgContent; %></p>
+      <img
+        src="/images/close.svg"
+        alt="Close"
+        class="close-error"
+        id="close-error"
+      />
+    </div>
+  </div>
+  <% }; %> <% if (msgType==="success" && msgContent) { %>
+  <div class="message-wrapper success" id="message-wrapper">
+    <div class="message-content">
+      <p>
+        <img src="/images/success.svg" alt="Success" />
+        <%= msgContent; %>
+      </p>
+      <img
+        src="/images/close.svg"
+        alt="Warning"
+        class="close-error"
+        id="close-error"
+      />
+    </div>
+  </div>
+  <% }; %> <% }; %>
+</section>
