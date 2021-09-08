@@ -1,50 +1,79 @@
-<section id="message-box">
-  <% if (msgType && msgContent) { %>
-    <% if (msgType==="error" && msgContent) { %>
-      <div class="message-wrapper error" id="message-wrapper">
-        <div class="message-content">
-          <img src="/images/error.svg" alt="Warning">
-          <p>
-            <%= msgContent; %>
-          </p>
-          <img src="/images/close.svg" alt="Close" class="close-error" id="close-error">
-        </div>
-      </div>
-      <% }; %>
-        <% if (msgType==="success" && msgContent) { %>
+<body>
+  <div id="home" class="content">
+    <header>
+      <a href="/">
+        <img src="/images/logo.svg" alt="Fale Mais Logo" />
+      </a>
+    </header>
+
+    <div id="bg">
+      <div class="ball top"></div>
+      <div class="ball bottom"></div>
+    </div>
+
+    <main>
+      <div class="container">
+        <section id="message-box">
+          <% if (msgType && msgContent) { %> <% if (msgType==="error" &&
+          msgContent) { %>
+          <div class="message-wrapper error" id="message-wrapper">
+            <div class="message-content">
+              <img src="/images/error.svg" alt="Warning" />
+              <p><%= msgContent; %></p>
+              <img
+                src="/images/close.svg"
+                alt="Close"
+                class="close-error"
+                id="close-error"
+              />
+            </div>
+          </div>
+          <% }; %> <% if (msgType==="success" && msgContent) { %>
           <div class="message-wrapper success" id="message-wrapper">
             <div class="message-content">
               <p>
-                <img src="/images/success.svg" alt="Success">
+                <img src="/images/success.svg" alt="Success" />
                 <%= msgContent; %>
               </p>
-              <img src="/images/close.svg" alt="Warning" class="close-error" id="close-error">
+              <img
+                src="/images/close.svg"
+                alt="Warning"
+                class="close-error"
+                id="close-error"
+              />
             </div>
           </div>
-          <% }; %>
-            <% }; %>
-</section>
-<section>
-  <h2>Criar uma nova conta</h2>
-  <form action="/signup" method="POST">
-    <label for="name" class="scr-only">Nome completo</label>
-    <input type="text" name="name" id="name" placeholder="Nome Completo"
-    <% if (inputError==="name") { %>style="border: .2rem solid var(--red);"<% }; %>
-    <% if (formData.name) { %>value="<%- formData.name; %>"<% }; %>>
-    <label for="email" class="scr-only">E-mail</label>
-    <input type="email" name="email" id="email" placeholder="E-mail"
-    <% if (inputError==="email") { %>style="border: .2rem solid var(--red);"<% }; %>
-    <% if (formData.email) { %>value="<%- formData.email; %>"<% }; %>>
-    <label for="phone" class="scr-only">Telefone</label>
-    <input type="text" name="phone" id="phone" placeholder="Telefone"
-    <% if (inputError==="phone") { %>style="border: .2rem solid var(--red);"<% }; %>
-    <% if (formData.phone) { %>value="<%- formData.phone; %>"<% }; %>>
-    <label for="password" class="scr-only">Senha</label>
-    <input type="password" name="password" id="password" placeholder="Senha"
-    <% if (inputError==="password") { %>style="border: .2rem solid var(--red);"<% }; %>>
-    <button>
-      <img src="/images/users-white.svg" alt="Cadastrar">
-      Cadastrar
-    </button>
-  </form>
-</section>
+          <% }; %> <% }; %>
+        </section>
+        <section>
+          <h2>Criar uma nova conta</h2>
+          <form action="/signup" method="POST">
+            <label for="name" class="scr-only">Nome completo</label>
+            <input type="text" name="name" id="name" placeholder="Nome Completo"
+            <% if (inputError.includes("name")) { %>style="border: .2rem solid
+            var(--red);"<% }; %> <% if (formData.name) { %>value="<%-
+            formData.name; %>"<% }; %>>
+            <label for="email" class="scr-only">E-mail</label>
+            <input type="email" name="email" id="email" placeholder="E-mail" <%
+            if (inputError.includes("email")) { %>style="border: .2rem solid
+            var(--red);"<% }; %> <% if (formData.email) { %>value="<%-
+            formData.email; %>"<% }; %>>
+            <label for="phone" class="scr-only">Telefone</label>
+            <input type="text" name="phone" id="phone" placeholder="Telefone" <%
+            if (inputError.includes("phone")) { %>style="border: .2rem solid
+            var(--red);"<% }; %> <% if (formData.phone) { %>value="<%-
+            formData.phone; %>"<% }; %>>
+            <label for="password" class="scr-only">Senha</label>
+            <input type="password" name="password" id="password"
+            placeholder="Senha" <% if (inputError.includes("password")) {
+            %>style="border: .2rem solid var(--red);"<% }; %>>
+            <button>
+              <img src="/images/users-white.svg" alt="Cadastrar" />
+              Cadastrar
+            </button>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
