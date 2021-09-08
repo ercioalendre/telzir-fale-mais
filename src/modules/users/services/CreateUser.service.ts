@@ -15,7 +15,7 @@ class CreateUserService {
 
     async function renderSignUpPage(
       msgContent: string,
-      inputError: string,
+      inputError: string | string[],
       msgType = "error",
     ): Promise<string | unknown> {
       return res.render("main", {
