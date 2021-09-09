@@ -12,6 +12,7 @@ class CreateUserService {
     const usersRepository = getCustomRepository(UsersRepository);
     const phoneExists = await usersRepository.findByPhone(phone);
     const emailExists = await usersRepository.findByEmail(email);
+    const origin = "signup";
 
     if (res.locals.message.msgContent) {
       const { msgContent, inputError } = res.locals.message;
@@ -50,11 +51,7 @@ class CreateUserService {
     const createUser = await usersRepository.save(user);
 
     if (createUser) {
-      await createUserSessionService.execute({
-        phone,
-        password,
-        res,
-      });
+      await createUserSessionService.execute({ phone, password, origin, res });
     } else {
       throw new AppError("Algo deu errado durante a criação de sua conta.");
     }
