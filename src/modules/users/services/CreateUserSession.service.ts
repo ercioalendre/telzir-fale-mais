@@ -9,6 +9,7 @@ import renderPageWithMessage from "@modules/users/utils/renderPageWithMessage";
 interface IRequest {
   phone: string;
   password: string;
+  origin: string;
   res: Response;
 }
 
@@ -16,19 +17,21 @@ class CreateUserSessionService {
   public async execute({
     phone,
     password,
+    origin,
     res,
   }: IRequest): Promise<void | boolean> {
     const usersRepository = getCustomRepository(UsersRepository);
     const user = await usersRepository.findByPhone(phone);
     const userPassword = user?.password || "";
     const passwordComparison = await compare(password, userPassword);
+    const message = res.locals.message;
 
-    console.log(res.locals.message);
-
-    if (res.locals.message) {
-      const { msgContent, inputError } = res.locals.message;
-      renderPageWithMessage(msgContent, inputError, res, "login-block");
-      return false;
+    if (message) {
+      if (message.msgContent) {
+        const { msgContent, inputError } = res.locals.message;
+        renderPageWithMessage(msgContent, inputError, res, "login-block");
+        return false;
+      }
     }
 
     if (!user || !passwordComparison) {
@@ -55,13 +58,17 @@ class CreateUserSessionService {
       httpOnly: true,
     });
 
-    renderPageWithMessage(
-      "Conta criada com sucesso!",
-      "",
-      res,
-      "my-account",
-      "success",
-    );
+    if (origin === "signup") {
+      renderPageWithMessage(
+        "Conta criada com sucesso!",
+        "",
+        res,
+        "signup-success",
+        "success",
+      );
+    } else {
+      res.redirect("/my-account");
+    }
   }
 }
 
