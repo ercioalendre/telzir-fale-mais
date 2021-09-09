@@ -22,12 +22,7 @@
                 <img src="/images/error.svg" alt="Warning" />
                 <%= msgContent; %>
               </p>
-              <img
-                src="/images/close.svg"
-                alt="Close"
-                class="close-error"
-                id="close-error"
-              />
+              <img src="/images/close.svg" alt="Close" class="close-error" id="close-error" />
             </div>
           </div>
           <% }; %> <% if (msgType==="success" && msgContent) { %>
@@ -37,42 +32,61 @@
                 <img src="/images/success.svg" alt="Success" />
                 <%= msgContent; %>
               </p>
-              <img
-                src="/images/close.svg"
-                alt="Warning"
-                class="close-error"
-                id="close-error"
-              />
+              <img src="/images/close.svg" alt="Warning" class="close-error" id="close-error" />
             </div>
           </div>
           <% }; %>
         </div>
 
-        <h2>Ask me a question</h2>
-        <form action="#">
-          <label class="scr-only" for="question">What you wanna ask me?</label>
-          <textarea
-            name="question"
-            id="question"
-            placeholder="What you wanna ask me?"
-          ></textarea>
-          <footer>
-            <div>
-              <img src="/images/lock.svg" alt="Lock" />
-              This is an anonymous question.
-            </div>
-            <button>Send</button>
-          </footer>
+        <h2>Calcule o custo da sua ligação</h2>
+        <form action="/my-account/calcular" method="POST">
+          <label for="callOrigin" class="scr-only">Origem</label>
+          <select name="callOrigin" id="callOrigin">
+            <option value="">Origem</option>
+            <option value="11">(11)</option>
+            <option value="16">(16)</option>
+            <option value="17">(17)</option>
+            <option value="18">(18)</option>
+          </select>
+          <label for="callDestination" class="scr-only">Destino</label>
+          <select name="callDestination" id="callDestination">
+            <option value="">Destino</option>
+            <option value="11">(11)</option>
+            <option value="16">(16)</option>
+            <option value="17">(17)</option>
+            <option value="18">(18)</option>
+          </select>
+          <label for="callDuration" class="scr-only"> Duração da chamada em minutos </label>
+          <input
+            type="text"
+            name="callDuration"
+            id="callDuration"
+            placeholder="Duração da chamada em minutos"
+          />
+          <label for="faleMaisPlan" class="scr-only">Plano FaleMais</label>
+          <select name="faleMaisPlan" id="faleMaisPlan" class="select-100">
+            <option value="">Selecione um plano</option>
+            <option value="FaleMais30">FaleMais30</option>
+            <option value="FaleMais60">FaleMais60</option>
+            <option value="FaleMais120">FaleMais120</option>
+          </select>
+          <button>
+            <img src="/images/calculate.svg" alt="Calcular" />
+            Calcular
+          </button>
         </form>
-      </section>
-
-      <section id="questions">
-        <h2 class="scr-only">Community questions</h2>
-        <div class="questions">
-          <div class="no-questions">
-            <img src="/images/no-questions.svg" alt="No questions yet" />
-            <p>No questions here yet...</p>
-            <p>Be the first to ask a question!</p>
+        <div class="message-wrapper info" id="calc-results-wrapper">
+          <div class="message-content">
+            <p>
+              <span id="calc-results-text-com-fale-mais"></span>
+              <span id="calc-results-text-sem-fale-mais"></span>
+            </p>
+            <img
+              src="/images/close.svg"
+              alt="Warning"
+              class="close-error"
+              id="close-calc-results-wrapper"
+            />
           </div>
         </div>
       </section>

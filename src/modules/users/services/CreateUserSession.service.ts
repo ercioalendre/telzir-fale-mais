@@ -9,7 +9,7 @@ import renderPageWithMessage from "@modules/users/utils/renderPageWithMessage";
 interface IRequest {
   phone: string;
   password: string;
-  origin: string;
+  origin?: string;
   res: Response;
 }
 

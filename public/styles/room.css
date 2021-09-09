@@ -5,7 +5,6 @@
 #room header {
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -31,12 +30,15 @@
   font-size: 2rem;
   font-weight: 500;
   font-family: "Poppins", sans-serif;
-  align-items: center;
   margin-right: 2rem;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }
 
 #room header .buttons .button:nth-child(2) {
-  padding: 1.3rem 2rem;
+  margin-bottom: 0px;
+  width: 100px;
 }
 
 #room header .buttons .button:nth-child(2) img {
@@ -53,53 +55,6 @@
   color: var(--black);
   margin-bottom: 2.4rem;
   line-height: 4.2rem;
-}
-
-#question-form form {
-  border: 0.2rem solid var(--grey-blue);
-  padding: 1.6rem;
-  border-radius: 0 0.8rem 0.8rem 0.8rem;
-  background-color: white;
-  margin-bottom: 1.6rem;
-}
-
-#question-form form textarea {
-  resize: none;
-  background: none;
-  outline: none;
-  width: 100%;
-}
-
-#question-form form textarea::placeholder {
-  color: var(--grey-blue);
-}
-
-#question-form form footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#question-form form footer > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--icons-details);
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-size: 1.4rem;
-}
-
-#question-form form footer > div img {
-  margin-right: 0.6rem;
-  width: 2rem;
-  height: 2rem;
-}
-
-#question-form form footer button {
-  height: auto;
-  padding: 0.8rem 2.4rem;
-  line-height: 2.4rem;
 }
 
 /* New questions */

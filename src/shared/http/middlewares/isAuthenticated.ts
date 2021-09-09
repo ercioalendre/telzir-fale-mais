@@ -10,11 +10,7 @@ interface ITokenPayLoad {
   name: string;
 }
 
-export default function isAuthenticated(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void {
+export default function isAuthenticated(req: Request, res: Response, next: NextFunction): void {
   const token = req.cookies["UserSessionToken"];
 
   if (!token) {
@@ -32,11 +28,7 @@ export default function isAuthenticated(
       name: firstName,
     };
 
-    if (req.originalUrl === "/my-account") {
-      return next();
-    } else {
-      res.redirect("/my-account");
-    }
+    return next();
   } catch {
     throw new AppError("Invalid token.", 401);
   }

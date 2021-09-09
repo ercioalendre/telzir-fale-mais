@@ -14,5 +14,6 @@ router.get("/login", isUserLoggedIn, UsersController.login);
 router.post("/login", checkLoginUserForm, UsersController.createUserSession);
 router.get("/logout", UsersController.logout);
 router.get("/my-account", isAuthenticated, UsersController.index);
+router.post("/my-account/calcular", isAuthenticated, UsersController.calculate);
 
 export default router;

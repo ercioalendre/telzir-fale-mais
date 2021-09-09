@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import createUserService from "@modules/users/services/CreateUser.service";
 import createUserSessionService from "@modules/users/services/CreateUserSession.service";
+import calculateCallCosts from "@modules/users/services/CalculateCallCosts.service";
 import AppError from "@shared/errors/AppError";
 
 class UsersController {
@@ -54,6 +55,11 @@ class UsersController {
 
   public async logout(req: Request, res: Response): Promise<void> {
     res.clearCookie("UserSessionToken").redirect("/login");
+  }
+
+  public async calculate(req: Request, res: Response): Promise<void> {
+    console.log("PASSEI AQUI [CONTROLLER]");
+    await calculateCallCosts.execute(req, res);
   }
 }
 
