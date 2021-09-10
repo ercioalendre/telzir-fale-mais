@@ -1,10 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export default function checkNewUserForm(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void {
+export default function checkNewUserForm(req: Request, res: Response, next: NextFunction): void {
   const { name, email, phone, password } = req.body;
   const formData = { name, email, phone, password };
   const inputError: string[] = [];
@@ -12,9 +8,7 @@ export default function checkNewUserForm(
   const parsedName = name.toUpperCase();
   const regName = new RegExp("^[a-zA-Z]{2,}(?: [a-zA-Z]+){1,}$");
   const regEmail = new RegExp("^[^@\\s]+@[^@\\s]+\\.+[^@\\s]{2,}$");
-  const regPhone = new RegExp(
-    "^(?:\\()[0-9]{2}(?:\\))\\s[0-9]{4,5}(?:-)[0-9]{4}$",
-  );
+  const regPhone = new RegExp("^(?:\\()[0-9]{2}(?:\\))\\s[0-9]{4,5}(?:-)[0-9]{4}$");
 
   Object.entries(formData).forEach(([key, val]) => {
     if (val) {
@@ -52,10 +46,7 @@ export default function checkNewUserForm(
       message = `O campo ${keyName} é obrigatório.`;
     }
 
-    message =
-      inputError.length <= 1
-        ? message
-        : "Um ou mais valores inseridos são inválidos.";
+    message = inputError.length <= 1 ? message : "Um ou mais valores inseridos são inválidos.";
 
     res.locals.message = {
       msgType: "error",

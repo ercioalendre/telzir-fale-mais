@@ -31,11 +31,7 @@ class CreateUserService {
     }
 
     if (phoneExists) {
-      renderPageWithMessage(
-        "Este número de telefone já está cadastrado.",
-        "phone",
-        res,
-      );
+      renderPageWithMessage("Este número de telefone já está cadastrado.", "phone", res);
       return false;
     }
 

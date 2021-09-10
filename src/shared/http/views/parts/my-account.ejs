@@ -1,3 +1,8 @@
+<!-- Title -->
+<title>
+  Fale Mais by Telzir | Minha conta
+</title>
+</head>
 <body>
   <div id="room" class="content">
     <header>
@@ -40,46 +45,41 @@
 
         <h2>Calcule o custo da sua ligação</h2>
         <form action="/my-account/calcular" method="POST">
-          <label for="callOrigin" class="scr-only">Origem</label>
-          <select name="callOrigin" id="callOrigin">
-            <option value="">Origem</option>
-            <option value="11">(11)</option>
-            <option value="16">(16)</option>
-            <option value="17">(17)</option>
-            <option value="18">(18)</option>
-          </select>
-          <label for="callDestination" class="scr-only">Destino</label>
-          <select name="callDestination" id="callDestination">
-            <option value="">Destino</option>
-            <option value="11">(11)</option>
-            <option value="16">(16)</option>
-            <option value="17">(17)</option>
-            <option value="18">(18)</option>
+          <label for="callRoute" class="scr-only">Origem</label>
+          <select name="callRoute" id="callRoute">
+            <option value="">Selecione uma opção</option>
+            <option value="elevenToSixteen">Origem (11) e Destino (16)</option>
+            <option value="sixteenToEleven">Origem (16) e Destino (11)</option>
+            <option value="elevenToSeventeen">Origem (11) e Destino (17)</option>
+            <option value="seventeenToEleven">Origem (17) e Destino (11)</option>
+            <option value="elevenToEighteen">Origem (11) e Destino (18)</option>
+            <option value="eighteenToEleven">Origem (18) e Destino (11)</option>
           </select>
           <label for="callDuration" class="scr-only"> Duração da chamada em minutos </label>
           <input
-            type="text"
+            type="number"
             name="callDuration"
             id="callDuration"
             placeholder="Duração da chamada em minutos"
           />
           <label for="faleMaisPlan" class="scr-only">Plano FaleMais</label>
-          <select name="faleMaisPlan" id="faleMaisPlan" class="select-100">
+          <select name="selectedFaleMaisPlan" id="selectedFaleMaisPlan" class="select-100">
             <option value="">Selecione um plano</option>
-            <option value="FaleMais30">FaleMais30</option>
-            <option value="FaleMais60">FaleMais60</option>
-            <option value="FaleMais120">FaleMais120</option>
+            <option value="faleMaisThirty">FaleMais30</option>
+            <option value="faleMaisSixty">FaleMais60</option>
+            <option value="faleMaisOneHundredTwenty">FaleMais120</option>
           </select>
           <button>
             <img src="/images/calculate.svg" alt="Calcular" />
             Calcular
           </button>
         </form>
-        <div class="message-wrapper info" id="calc-results-wrapper">
+        <% if (msgType==="info" && msgContentWithFaleMais) { %>
+        <div id="calc-wrapper" class="message-wrapper info">
           <div class="message-content">
             <p>
-              <span id="calc-results-text-com-fale-mais"></span>
-              <span id="calc-results-text-sem-fale-mais"></span>
+              <span id="calc-results-text-com-fale-mais"><%= msgContentWithFaleMais; %></span>
+              <span id="calc-results-text-sem-fale-mais"><%= msgContentWithoutFaleMais; %></span>
             </p>
             <img
               src="/images/close.svg"
@@ -89,6 +89,7 @@
             />
           </div>
         </div>
+        <% }; %>
       </section>
     </main>
   </div>

@@ -14,12 +14,7 @@ interface IRequest {
 }
 
 class CreateUserSessionService {
-  public async execute({
-    phone,
-    password,
-    origin,
-    res,
-  }: IRequest): Promise<void | boolean> {
+  public async execute({ phone, password, origin, res }: IRequest): Promise<void | boolean> {
     const usersRepository = getCustomRepository(UsersRepository);
     const user = await usersRepository.findByPhone(phone);
     const userPassword = user?.password || "";
@@ -59,13 +54,7 @@ class CreateUserSessionService {
     });
 
     if (origin === "signup") {
-      renderPageWithMessage(
-        "Conta criada com sucesso!",
-        "",
-        res,
-        "signup-success",
-        "success",
-      );
+      renderPageWithMessage("Conta criada com sucesso!", "", res, "signup-success", "success");
     } else {
       res.redirect("/my-account");
     }

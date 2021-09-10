@@ -58,7 +58,6 @@ class UsersController {
   }
 
   public async calculate(req: Request, res: Response): Promise<void> {
-    console.log("PASSEI AQUI [CONTROLLER]");
     await calculateCallCosts.execute(req, res);
   }
 }

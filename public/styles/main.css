@@ -74,7 +74,7 @@ button,
 }
 
 select {
-  width: 49.6%;
+  width: 100%;
   margin-bottom: 1.8rem;
 }
 
@@ -226,8 +226,4 @@ button.grey:hover,
 
 .close-error {
   cursor: pointer;
-}
-
-#calc-results-wrapper {
-  visibility: hidden;
 }

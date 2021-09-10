@@ -15,5 +15,11 @@ router.post("/login", checkLoginUserForm, UsersController.createUserSession);
 router.get("/logout", UsersController.logout);
 router.get("/my-account", isAuthenticated, UsersController.index);
 router.post("/my-account/calcular", isAuthenticated, UsersController.calculate);
+router.get("/my-account/calcular", isAuthenticated, (req, res) => res.redirect("/my-account"));
+router.get("*", (req, res) => {
+  res.status(404).render("main", {
+    page: "page-not-found",
+  });
+});
 
 export default router;
