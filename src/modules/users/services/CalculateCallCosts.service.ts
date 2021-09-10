@@ -29,7 +29,7 @@ class CalculateCallCosts {
 
     const callCostWithoutPlan = Number(callDuration * callRouteMinutePrice);
 
-    let callCostWithPlan;
+    let callCostWithPlan = 0;
 
     Object.entries(faleMaisPlans).forEach(([key, val]) => {
       if (selectedFaleMaisPlan === key) {
@@ -44,8 +44,12 @@ class CalculateCallCosts {
 
     console.log(callCostWithPlan);
 
+    const formattedCallCostWithPlan = callCostWithPlan
+      ? callCostWithPlan.toLocaleString("pt-br", { style: "currency", currency: "BRL" })
+      : "R$ 0,00";
+
     renderPageWithInfo(
-      `Com o plano ${selectedFaleMaisPlan}, o custo de uma chamada de ${callDuration} minutos de ${callRoute} será de R$ `,
+      `Com o plano ${selectedFaleMaisPlan}, o custo de uma chamada de ${callDuration} minutos de ${callRoute} será de ${formattedCallCostWithPlan}`,
       "",
       res,
     );

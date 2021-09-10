@@ -204,10 +204,6 @@ button.grey:hover,
   margin-right: 15px;
 }
 
-.message-wrapper .message-content p > span {
-  width: 50%;
-}
-
 .message-wrapper .message-content p > img {
   margin-right: 0.8rem;
 }
