@@ -1,11 +1,13 @@
-.content {
-  display: grid;
-  grid-template-columns: 60% 40%;
-  grid-template-rows: 11.4rem 1fr;
+@media only screen and (min-width: 769px) {
+  .content {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 11.4rem 1fr;
 
-  grid-template-areas:
-    "header header"
-    "left right";
+    grid-template-areas:
+      "header header"
+      "left right";
+  }
 }
 
 header {
@@ -25,6 +27,7 @@ main {
   display: flex;
   align-items: center;
   height: fit-content;
+  justify-content: center;
 }
 
 main .container {
@@ -93,4 +96,24 @@ button,
 .ball.bottom {
   bottom: -15.6rem;
   right: 5.6rem;
+}
+
+@media only screen and (max-width: 768px) {
+  #bg {
+    visibility: hidden;
+    display: none;
+  }
+
+  .content header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  main .container {
+    margin: 0 10px 0 10px;
+  }
 }
