@@ -1,19 +1,28 @@
 /* eslint-disable no-undef */
 const buttonCloseErrorWrapper = document.getElementById("close-error");
 const closeCalcResults = document.getElementById("close-calc-results-wrapper");
+const inputCallRoute = document.getElementById("callRoute");
+const inputRouteDescription = document.getElementById("routeDescription");
 
 if (closeCalcResults) {
-  closeCalcResults.addEventListener("click", () => RemoveCalcResultsWrapper());
+  closeCalcResults.addEventListener("click", () => removeCalcResultsWrapper());
 }
 
 if (buttonCloseErrorWrapper) {
-  buttonCloseErrorWrapper.addEventListener("click", () => RemoveErrorWrapper());
+  buttonCloseErrorWrapper.addEventListener("click", () => removeErrorWrapper());
 }
 
-function RemoveErrorWrapper() {
+if (inputCallRoute) {
+  inputCallRoute.addEventListener("change", function () {
+    const selectedRouteText = this.options[this.selectedIndex].text;
+    inputRouteDescription.value = selectedRouteText;
+  });
+}
+
+function removeErrorWrapper() {
   document.getElementById("message-wrapper").remove();
 }
 
-function RemoveCalcResultsWrapper() {
+function removeCalcResultsWrapper() {
   document.getElementById("calc-wrapper").remove();
 }
