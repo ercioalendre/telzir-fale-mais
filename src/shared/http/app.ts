@@ -58,8 +58,7 @@ class AppController {
         }
         if (isCelebrateError(error)) {
           const errorBody = error.details.get("body");
-          const celebrateErrorMessage =
-            errorBody != undefined ? errorBody.message : undefined;
+          const celebrateErrorMessage = errorBody != undefined ? errorBody.message : undefined;
           return res.status(401).json({
             status: "error",
             message: celebrateErrorMessage,

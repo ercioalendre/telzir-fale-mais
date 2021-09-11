@@ -1,7 +1,6 @@
 const appMode = process.env.APP_MODE === "prod" ? "build" : "src";
 const dropSchema = process.env.TYPEORM_DROP_SCHEMA === "true" ? true : false;
-const migrationsRun =
-  process.env.TYPEORM_MIGRATIONS_RUN === "true" ? true : false;
+const migrationsRun = process.env.TYPEORM_MIGRATIONS_RUN === "true" ? true : false;
 const logging = process.env.TYPEORM_LOGGING === "true" ? true : false;
 const synchronize = process.env.TYPEORM_SYNCHRONIZE === "true" ? true : false;
 
