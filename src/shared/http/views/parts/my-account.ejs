@@ -43,6 +43,24 @@
           <% }; %>
         </div>
 
+        <% if (msgType==="info" && msgContentWithFaleMais) { %>
+        <div id="calc-wrapper" class="message-wrapper info">
+          <div class="message-content">
+            <p>
+              <span id="calc-results-text-com-fale-mais"><%= msgContentWithFaleMais; %></span>
+              <br />
+              <span id="calc-results-text-sem-fale-mais"><%= msgContentWithoutFaleMais; %></span>
+            </p>
+            <img
+              src="/images/close.svg"
+              alt="Warning"
+              class="close-error"
+              id="close-calc-results-wrapper"
+            />
+          </div>
+        </div>
+        <% }; %>
+
         <h2>Calcule o custo da sua ligação</h2>
         <form action="/my-account/calcular" method="POST">
           <label for="callRoute" class="scr-only">Origem</label>
@@ -69,27 +87,12 @@
             <option value="faleMaisSixty">FaleMais60</option>
             <option value="faleMaisOneHundredTwenty">FaleMais120</option>
           </select>
+          <input type="hidden" id="routeDescription" name="routeDescription">
           <button>
             <img src="/images/calculate.svg" alt="Calcular" />
             Calcular
           </button>
         </form>
-        <% if (msgType==="info" && msgContentWithFaleMais) { %>
-        <div id="calc-wrapper" class="message-wrapper info">
-          <div class="message-content">
-            <p>
-              <span id="calc-results-text-com-fale-mais"><%= msgContentWithFaleMais; %></span>
-              <span id="calc-results-text-sem-fale-mais"><%= msgContentWithoutFaleMais; %></span>
-            </p>
-            <img
-              src="/images/close.svg"
-              alt="Warning"
-              class="close-error"
-              id="close-calc-results-wrapper"
-            />
-          </div>
-        </div>
-        <% }; %>
       </section>
     </main>
   </div>
