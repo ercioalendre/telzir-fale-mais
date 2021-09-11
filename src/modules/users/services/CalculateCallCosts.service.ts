@@ -7,7 +7,7 @@ type originToDestinationPrices = {
 
 class CalculateCallCosts {
   public async execute(req: Request, res: Response): Promise<void | boolean> {
-    const { callDuration, selectedFaleMaisPlan } = req.body;
+    const { callDuration, selectedFaleMaisPlan, routeDescription } = req.body;
     const callRoute: keyof originToDestinationPrices = req.body.callRoute;
 
     const faleMaisPlans = {
@@ -30,9 +30,11 @@ class CalculateCallCosts {
     const callCostWithoutPlan = Number(callDuration * callRouteMinutePrice);
 
     let callCostWithPlan = 0;
+    let planName = "";
 
     Object.entries(faleMaisPlans).forEach(([key, val]) => {
       if (selectedFaleMaisPlan === key) {
+        planName = `FaleMais${val}`;
         if (callDuration <= val) {
           callCostWithPlan = 0;
         } else {
@@ -42,15 +44,16 @@ class CalculateCallCosts {
       }
     });
 
-    console.log(callCostWithPlan);
-
     const formattedCallCostWithPlan = callCostWithPlan
       ? callCostWithPlan.toLocaleString("pt-br", { style: "currency", currency: "BRL" })
       : "R$ 0,00";
+    const formattedCallCostWithoutPlan = callCostWithoutPlan
+      ? callCostWithoutPlan.toLocaleString("pt-br", { style: "currency", currency: "BRL" })
+      : "R$ 0,00";
 
     renderPageWithInfo(
-      `Com o plano ${selectedFaleMaisPlan}, o custo de uma chamada de ${callDuration} minutos de ${callRoute} será de ${formattedCallCostWithPlan}`,
-      "",
+      `Com o plano ${planName}, o custo de uma chamada de ${callDuration} minutos de duração com ${routeDescription} será de ${formattedCallCostWithPlan}.`,
+      `Sem nenhum plano contratado, o custo desta mesma chamada será de ${formattedCallCostWithoutPlan}.`,
       res,
     );
     return true;
