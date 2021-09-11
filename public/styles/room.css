@@ -140,6 +140,7 @@
   font-size: 1.6rem;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
+  flex-direction: column;
 }
 
 .message-wrapper .message-content p > img {
@@ -182,4 +183,24 @@
   font-family: "Open sans", sans-serif;
   margin-top: 1.3rem;
   line-height: 1.9rem;
+}
+
+@media only screen and (max-width: 768px) {
+  #room header {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: center;
+  }
+
+  #bg {
+    visibility: hidden;
+    display: none;
+  }
+
+  #room header .buttons {
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
 }
