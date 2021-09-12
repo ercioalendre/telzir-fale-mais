@@ -1,10 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export default function checkNewUserForm(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void {
+export default function checkNewUserForm(req: Request, res: Response, next: NextFunction): void {
   const { phone, password } = req.body;
   const formData = { phone, password };
   const inputError: string[] = [];
@@ -21,10 +17,7 @@ export default function checkNewUserForm(
 
       inputError.push(key);
 
-      message =
-        inputError.length == 1
-          ? message
-          : "Um ou mais valores inseridos são inválidos.";
+      message = inputError.length == 1 ? message : "Um ou mais valores inseridos são inválidos.";
 
       res.locals.message = {
         msgType: "error",

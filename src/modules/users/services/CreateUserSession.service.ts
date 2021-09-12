@@ -4,7 +4,7 @@ import UsersRepository from "@modules/users/typeorm/repositories/Users.repositor
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { Response } from "express";
-import renderPageWithMessage from "@modules/users/utils/renderPageWithMessage";
+import renderPageWithMessage from "@shared/http/providers/renderPageWithMessage";
 
 interface IRequest {
   phone: string;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import renderPageWithInfo from "@modules/users/utils/renderPageWithInfo";
+import renderPageWithInfo from "@shared/http/providers/renderPageWithInfo";
 
 type originToDestinationPrices = {
   [key: string]: number;

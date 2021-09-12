@@ -4,7 +4,7 @@ import UsersRepository from "@modules/users/typeorm/repositories/Users.repositor
 import createUserSessionService from "@modules/users/services/CreateUserSession.service";
 import { hash } from "bcryptjs";
 import { Response } from "express";
-import renderPageWithMessage from "@modules/users/utils/renderPageWithMessage";
+import renderPageWithMessage from "@shared/http/providers/renderPageWithMessage";
 
 class CreateUserService {
   public async execute(res: Response): Promise<void | boolean> {

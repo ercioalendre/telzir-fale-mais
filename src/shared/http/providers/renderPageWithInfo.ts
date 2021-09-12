@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-export default async function renderPageWithMessage(
+export default async function renderPageWithInfo(
   msgContentWithFaleMais: string,
   msgContentWithoutFaleMais: string,
   res: Response,
