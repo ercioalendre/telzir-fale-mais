@@ -35,18 +35,24 @@ beforeEach(async () => {
   await connection.clear();
 });
 
+afterEach(async () => {
+  await connection.clear();
+});
+
 describe("Create user service tests", () => {
   it("should create a new user", async () => {
-    const user = {
+    const newUser = {
       name: "USUARIO TESTE",
       email: "usuario@teste.com.br",
       phone: "(11) 11111-1111",
       password: "teste123",
     };
 
-    const response = await supertest(app).post("/signup").send(user);
-
-    expect(response.statusCode).toEqual(201);
+    Promise.resolve(async () => {
+      const createNewUser = await supertest(app).post("/signup").send(newUser);
+      expect(createNewUser.statusCode).toBe(201);
+      expect(createNewUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
+    });
   });
 
   it("should not create a new user: email address already exists", async () => {
@@ -64,11 +70,21 @@ describe("Create user service tests", () => {
       password: "123teste",
     };
 
-    await supertest(app).post("/signup").send(userOne);
-    const response = await supertest(app).post("/signup").send(userTwo);
+    Promise.resolve(async () => {
+      const createUserOne = await supertest(app).post("/signup").send(userOne);
+      expect(createUserOne.statusCode).toBe(201);
+      expect(createUserOne.text.includes("Conta criada com sucesso!")).toBeTruthy();
+    });
 
-    expect(response.statusCode).toEqual(400);
-    expect(response.text.includes("Este endereço de e-mail já está cadastrado.")).toBeTruthy();
+    Promise.resolve(async () => {
+      const createUserTwo = await supertest(app).post("/signup").send(userTwo);
+      expect(createUserTwo.statusCode).toBe(422);
+      expect(
+        createUserTwo.text.includes("Este endereço de e-mail já está cadastrado."),
+      ).toBeTruthy();
+    });
+
+    return true;
   });
 
   it("should not create a new user: phone number already exists", async () => {
@@ -86,11 +102,27 @@ describe("Create user service tests", () => {
       password: "123teste",
     };
 
-    await supertest(app).post("/signup").send(userOne);
-    const response = await supertest(app).post("/signup").send(userTwo);
+    Promise.resolve(async () => {
+      const createUserOne = await supertest(app).post("/signup").send(userOne);
+      expect(createUserOne.statusCode).toBe(201);
+      expect(createUserOne.text.includes("Conta criada com sucesso!")).toBeTruthy();
+    });
 
-    expect(response.statusCode).toEqual(400);
-    expect(response.text.includes("Este número de telefone já está cadastrado.")).toBeTruthy();
+    Promise.resolve(async () => {
+      const createUserTwo = await supertest(app).post("/signup").send(userTwo);
+      expect(createUserTwo.statusCode).toBe(422);
+      expect(
+        createUserTwo.text.includes("Este número de telefone já está cadastrado."),
+      ).toBeTruthy();
+    });
+
+    // const createUserOne = await supertest(app).post("/signup").send(userOne);
+    // expect(createUserOne.statusCode).toBe(201);
+    // expect(createUserOne.text.includes("Conta criada com sucesso!")).toBeTruthy();
+
+    // const createUserTwo = await supertest(app).post("/signup").send(userTwo);
+    // expect(createUserTwo.statusCode).toBe(422);
+    // expect(createUserTwo.text.includes("Este número de telefone já está cadastrado.")).toBeTruthy();
   });
 });
 
@@ -105,7 +137,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("O campo nome completo é obrigatório.")).toBeTruthy();
   });
 
@@ -119,7 +151,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("O nome completo inserido é inválido.")).toBeTruthy();
   });
 
@@ -133,7 +165,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("O campo e-mail é obrigatório.")).toBeTruthy();
   });
 
@@ -147,7 +179,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("O endereço de e-mail inserido é inválido.")).toBeTruthy();
   });
 
@@ -161,7 +193,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("O campo telefone é obrigatório.")).toBeTruthy();
   });
 
@@ -175,7 +207,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("O número de telefone inserido é inválido.")).toBeTruthy();
   });
 
@@ -189,7 +221,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("O campo senha é obrigatório.")).toBeTruthy();
   });
 
@@ -203,7 +235,7 @@ describe("Create user service tests: new user registration form", () => {
 
     const response = await supertest(app).post("/signup").send(user);
 
-    expect(response.statusCode).toEqual(400);
+    expect(response.statusCode).toEqual(422);
     expect(response.text.includes("A senha deve conter seis ou mais caracteres.")).toBeTruthy();
   });
 });
