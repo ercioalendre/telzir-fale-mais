@@ -14,19 +14,19 @@ export default function checkNewUserForm(req: Request, res: Response, next: Next
     if (val) {
       if (key === "name") {
         if (!regName.test(parsedName)) {
-          message = "O nome completo inserido é inválido";
+          message = "O nome completo inserido é inválido.";
           inputError.push(key);
         }
       }
       if (key === "email") {
         if (!regEmail.test(email)) {
-          message = "O endereço de e-mail inserido é inválido";
+          message = "O endereço de e-mail inserido é inválido.";
           inputError.push(key);
         }
       }
       if (key === "phone") {
         if (!regPhone.test(phone)) {
-          message = "O número de telefone inserido é inválido";
+          message = "O número de telefone inserido é inválido.";
           inputError.push(key);
         }
       }
@@ -39,8 +39,8 @@ export default function checkNewUserForm(req: Request, res: Response, next: Next
     } else {
       inputError.push(key);
       let keyName;
-      if (key === "name") keyName = "nome";
-      if (key === "password") keyName = "senha";
+      if (key === "name") keyName = "nome completo";
+      if (key === "email") keyName = "e-mail";
       if (key === "phone") keyName = "telefone";
       if (key === "password") keyName = "senha";
       message = `O campo ${keyName} é obrigatório.`;

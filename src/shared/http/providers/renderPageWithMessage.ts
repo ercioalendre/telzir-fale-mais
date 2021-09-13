@@ -6,8 +6,9 @@ export default async function renderPageWithMessage(
   res: Response,
   page = "new-user",
   msgType = "error",
+  statusCode = 400,
 ): Promise<string | unknown> {
-  return res.render("main", {
+  return res.status(statusCode).render("main", {
     page,
     msgContent,
     inputError,
