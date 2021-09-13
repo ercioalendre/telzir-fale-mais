@@ -1,5 +1,4 @@
 import { getCustomRepository } from "typeorm";
-import AppError from "@shared/errors/AppError";
 import UsersRepository from "@modules/users/typeorm/repositories/Users.repository";
 import createUserSessionService from "@modules/users/services/CreateUserSession.service";
 import { hash } from "bcryptjs";
@@ -21,12 +20,7 @@ class CreateUserService {
     }
 
     if (emailExists) {
-      renderPageWithMessage(
-        "Este endereço de e-mail já está cadastrado.",
-        "email",
-        res,
-        "new-user",
-      );
+      renderPageWithMessage("Este endereço de e-mail já está cadastrado.", "email", res);
       return false;
     }
 
@@ -49,7 +43,15 @@ class CreateUserService {
     if (createUser) {
       await createUserSessionService.execute({ phone, password, origin, res });
     } else {
-      throw new AppError("Algo deu errado durante a criação de sua conta.");
+      renderPageWithMessage(
+        "Algo deu errado durante a criação de sua conta.",
+        "",
+        res,
+        "new-user",
+        "error",
+        500,
+      );
+      return false;
     }
   }
 }

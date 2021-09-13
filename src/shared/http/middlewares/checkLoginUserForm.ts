@@ -9,10 +9,10 @@ export default function checkNewUserForm(req: Request, res: Response, next: Next
       let message;
 
       if (key === "password") {
-        message = "A senha inserida é inválida";
+        message = "A senha inserida é inválida.";
       }
       if (key === "phone") {
-        message = "O número de telefone inserido é inválido";
+        message = "O número de telefone inserido é inválido.";
       }
 
       inputError.push(key);

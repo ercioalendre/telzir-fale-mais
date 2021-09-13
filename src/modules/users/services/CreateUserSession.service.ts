@@ -24,7 +24,7 @@ class CreateUserSessionService {
     if (message) {
       if (message.msgContent) {
         const { msgContent, inputError } = res.locals.message;
-        renderPageWithMessage(msgContent, inputError, res, "login-block");
+        renderPageWithMessage(msgContent, inputError, res, "login-block", "error", 401);
         return false;
       }
     }
@@ -35,6 +35,8 @@ class CreateUserSessionService {
         "",
         res,
         "login-block",
+        "error",
+        401,
       );
       return false;
     }
@@ -56,7 +58,7 @@ class CreateUserSessionService {
     if (origin === "signup") {
       renderPageWithMessage("Conta criada com sucesso!", "", res, "signup-success", "success", 201);
     } else {
-      res.redirect("/my-account");
+      res.status(200).redirect("/my-account");
     }
   }
 }
