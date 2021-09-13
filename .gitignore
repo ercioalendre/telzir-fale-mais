@@ -13,3 +13,5 @@ logs/*
 
 src/database/*
 !src/database/.gitkeep
+
+src/__tests__/coverage/*
