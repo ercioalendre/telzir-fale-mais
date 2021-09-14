@@ -6,8 +6,9 @@ export default async function renderPageWithInfo(
   res: Response,
   page = "my-account",
   msgType = "info",
+  statusCode = 200,
 ): Promise<string | unknown> {
-  return res.render("main", {
+  return res.status(statusCode).render("main", {
     page,
     msgContentWithFaleMais,
     msgContentWithoutFaleMais,
