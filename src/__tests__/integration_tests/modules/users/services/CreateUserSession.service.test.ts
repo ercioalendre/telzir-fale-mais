@@ -1,27 +1,7 @@
 import "reflect-metadata";
-import { createConnection, getConnection } from "typeorm";
 import supertest from "supertest";
 import app from "@shared/http/app";
-
-const connection = {
-  async create(): Promise<void> {
-    await createConnection();
-  },
-
-  async close(): Promise<void> {
-    await getConnection().close();
-  },
-
-  async clear(): Promise<void> {
-    const connection = getConnection();
-    const entities = connection.entityMetadatas;
-
-    entities.forEach(async entity => {
-      const repository = connection.getRepository(entity.name);
-      await repository.query(`DELETE FROM ${entity.tableName}`);
-    });
-  },
-};
+import connection from "@tests/Test.connection";
 
 beforeAll(async () => {
   await connection.create();
@@ -48,22 +28,20 @@ describe("Create user session service tests", () => {
       password: "teste123",
     };
 
+    const createNewUser = await Promise.resolve(supertest(app).post("/signup").send(newUser));
+    expect(createNewUser.statusCode).toBe(201);
+    expect(createNewUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
+
     const userLoginData = {
-      phone: "(11) 11111-1111",
-      password: "teste123",
+      phone: newUser.phone,
+      password: newUser.password,
     };
 
-    Promise.resolve(async () => {
-      const createNewUser = await supertest(app).post("/signup").send(newUser);
-      expect(createNewUser.statusCode).toBe(201);
-      expect(createNewUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
-    });
-
-    Promise.resolve(async () => {
-      const createUserSession = await supertest(app).post("/login").send(userLoginData);
-      expect(createUserSession.statusCode).toBe(302);
-      expect(createUserSession.header.location).toBe("/my-account");
-    });
+    const createUserSession = await Promise.resolve(
+      supertest(app).post("/login").send(userLoginData),
+    );
+    expect(createUserSession.statusCode).toBe(302);
+    expect(createUserSession.header.location).toBe("/my-account");
   });
 
   it("should not create an user session: wrong credentials", async () => {
@@ -72,7 +50,9 @@ describe("Create user session service tests", () => {
       password: "teste123",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
+    const createUserSession = await Promise.resolve(
+      supertest(app).post("/login").send(userLoginData),
+    );
     expect(createUserSession.statusCode).toBe(401);
     expect(
       createUserSession.text.includes("O número de telefone ou senha está incorreto."),
@@ -85,7 +65,9 @@ describe("Create user session service tests", () => {
       password: "",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
+    const createUserSession = await Promise.resolve(
+      supertest(app).post("/login").send(userLoginData),
+    );
     expect(createUserSession.statusCode).toBe(401);
     expect(
       createUserSession.text.includes("Um ou mais valores inseridos são inválidos."),
@@ -98,7 +80,9 @@ describe("Create user session service tests", () => {
       password: "",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
+    const createUserSession = await Promise.resolve(
+      supertest(app).post("/login").send(userLoginData),
+    );
     expect(createUserSession.statusCode).toBe(401);
     expect(createUserSession.text.includes("A senha inserida é inválida.")).toBeTruthy();
   });
@@ -109,7 +93,9 @@ describe("Create user session service tests", () => {
       password: "teste123",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
+    const createUserSession = await Promise.resolve(
+      supertest(app).post("/login").send(userLoginData),
+    );
     expect(createUserSession.statusCode).toBe(401);
     expect(
       createUserSession.text.includes("O número de telefone inserido é inválido."),
