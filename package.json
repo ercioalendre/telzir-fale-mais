@@ -2,6 +2,7 @@
   "name": "telzir-fale-mais",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -10,7 +11,8 @@
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "jest --silent=false"
+    "pretest": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop",
+    "test": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run && jest"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -37,7 +39,6 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "celebrate": "^15.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "date-fns": "^2.23.0",
