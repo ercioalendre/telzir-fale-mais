@@ -42,16 +42,6 @@ class CreateUserService {
 
     if (createUser) {
       await createUserSessionService.execute({ phone, password, origin, res });
-    } else {
-      renderPageWithMessage(
-        "Algo deu errado durante a criação de sua conta.",
-        "",
-        res,
-        "new-user",
-        "error",
-        500,
-      );
-      return false;
     }
   }
 }
