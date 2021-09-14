@@ -7,7 +7,6 @@ import routes from "@MainRoutes";
 import path from "path";
 import AppError, { isOperationalError } from "@shared/errors/AppError";
 import express, { Express, NextFunction, Request, Response } from "express";
-import { isCelebrateError } from "celebrate";
 import cookieParser from "cookie-parser";
 
 process.on("unhandledRejection", error => {
@@ -54,14 +53,6 @@ class AppController {
           return res.status(error.statusCode).json({
             status: "error",
             message: error.message,
-          });
-        }
-        if (isCelebrateError(error)) {
-          const errorBody = error.details.get("body");
-          const celebrateErrorMessage = errorBody != undefined ? errorBody.message : undefined;
-          return res.status(401).json({
-            status: "error",
-            message: celebrateErrorMessage,
           });
         }
         console.log(error);
