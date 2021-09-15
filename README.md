@@ -42,6 +42,16 @@ $ rm -rf node_modules
 $ yarn install --frozen-lockfile
 ```
 
+#### 3. Run migrations
+
+```sh
+# with npm
+$ npm run typeorm migration:run
+
+# with yarn
+$ yarn typeorm migration:run
+```
+
 #### 4. Start the server
 
 ```sh
@@ -56,7 +66,7 @@ yarn dev
 
 That's it! You can now see it up and running on [http://localhost:3000](http://localhost:3000)
 
-#### 6. Testing
+#### 6. Testings
 
 The application is being tested by Jest.
 
