@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import supertest from "supertest";
 import app from "@shared/http/app";
-import connection from "@tests/Test.connection";
+import connection from "@tests/providers/Connection.test";
 import { sign } from "jsonwebtoken";
 import jwt from "@config/auth/jwt";
 
@@ -14,10 +14,6 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await connection.clear();
-});
-
-afterEach(async () => {
   await connection.clear();
 });
 
