@@ -12,7 +12,7 @@
     "lint-fix": "eslint . --ext .ts --fix",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "pretest": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop",
-    "test": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run && jest"
+    "test": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run && jest --no-cache"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
