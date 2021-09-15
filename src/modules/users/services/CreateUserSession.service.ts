@@ -58,7 +58,7 @@ class CreateUserSessionService {
     if (origin === "signup") {
       renderPageWithMessage("Conta criada com sucesso!", "", res, "signup-success", "success", 201);
     } else {
-      res.status(200).redirect("/my-account");
+      res.redirect("/my-account");
     }
   }
 }
