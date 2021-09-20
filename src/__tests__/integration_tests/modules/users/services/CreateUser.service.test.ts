@@ -13,10 +13,13 @@ afterAll(async () => {
 describe("Create user service tests", () => {
   it("should create a new user", async () => {
     await connection.clear();
-    const createUser = await createNewUser({});
-    if (createUser) {
-      expect(createUser.statusCode).toBe(201);
-      expect(createUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
+    try {
+      await createNewUser({}).then(createUser => {
+        expect(createUser.statusCode).toBe(201);
+        expect(createUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
     }
   });
 
@@ -29,24 +32,31 @@ describe("Create user service tests", () => {
       password: "teste123",
     };
 
-    const createUserOne = await createNewUser(userOne);
+    try {
+      await createNewUser(userOne).then(createUser => {
+        expect(createUser.statusCode).toBe(201);
+        expect(createUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
 
-    if (createUserOne.statusCode === 201) {
-      const userTwo = {
-        name: "TESTE USUARIO",
-        email: "usuario@teste.com.br",
-        phone: "(22) 22222-2222",
-        password: "123teste",
-      };
+    const userTwo = {
+      name: "TESTE USUARIO",
+      email: "usuario@teste.com.br",
+      phone: "(22) 22222-2222",
+      password: "123teste",
+    };
 
-      const createUserTwo = await createNewUser(userTwo);
-
-      if (createUserTwo.statusCode === 422) {
-        expect(createUserTwo.statusCode).toBe(422);
+    try {
+      await createNewUser(userTwo).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
         expect(
-          createUserTwo.text.includes("Este endereço de e-mail já está cadastrado."),
+          createUser.text.includes("Este endereço de e-mail já está cadastrado."),
         ).toBeTruthy();
-      }
+      });
+    } catch (error) {
+      return false;
     }
   });
 
@@ -59,24 +69,31 @@ describe("Create user service tests", () => {
       password: "teste123",
     };
 
-    const createUserOne = await createNewUser(userOne);
+    try {
+      await createNewUser(userOne).then(createUser => {
+        expect(createUser.statusCode).toBe(201);
+        expect(createUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
 
-    if (createUserOne.statusCode === 201) {
-      const userTwo = {
-        name: "TESTE USUARIO",
-        email: "teste@usuario.com.br",
-        phone: "(11) 11111-1111",
-        password: "123teste",
-      };
+    const userTwo = {
+      name: "TESTE USUARIO",
+      email: "teste@usuario.com.br",
+      phone: "(11) 11111-1111",
+      password: "123teste",
+    };
 
-      const createUserTwo = await createNewUser(userTwo);
-
-      if (createUserTwo.statusCode === 422) {
-        expect(createUserTwo.statusCode).toBe(422);
+    try {
+      await createNewUser(userTwo).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
         expect(
-          createUserTwo.text.includes("Este número de telefone já está cadastrado."),
+          createUser.text.includes("Este número de telefone já está cadastrado."),
         ).toBeTruthy();
-      }
+      });
+    } catch (error) {
+      return false;
     }
   });
 });
@@ -89,9 +106,15 @@ describe("Create user service tests: new user registration form", () => {
       phone: "(11) 11111-1111",
       password: "teste123",
     };
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("O campo nome completo é obrigatório.")).toBeTruthy();
+
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(createUser.text.includes("O campo nome completo é obrigatório.")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create a new user: full name field is invalid", async () => {
@@ -102,9 +125,14 @@ describe("Create user service tests: new user registration form", () => {
       password: "teste123",
     };
 
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("O nome completo inserido é inválido.")).toBeTruthy();
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(createUser.text.includes("O nome completo inserido é inválido.")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create a new user: email field is required", async () => {
@@ -115,9 +143,14 @@ describe("Create user service tests: new user registration form", () => {
       password: "teste123",
     };
 
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("O campo e-mail é obrigatório.")).toBeTruthy();
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(createUser.text.includes("O campo e-mail é obrigatório.")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create a new user: email field is invalid", async () => {
@@ -128,9 +161,14 @@ describe("Create user service tests: new user registration form", () => {
       password: "teste123",
     };
 
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("O endereço de e-mail inserido é inválido.")).toBeTruthy();
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(createUser.text.includes("O endereço de e-mail inserido é inválido.")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create a new user: phone number field is required", async () => {
@@ -141,9 +179,14 @@ describe("Create user service tests: new user registration form", () => {
       password: "teste123",
     };
 
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("O campo telefone é obrigatório.")).toBeTruthy();
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(createUser.text.includes("O campo telefone é obrigatório.")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create a new user: phone number field is invalid", async () => {
@@ -154,9 +197,14 @@ describe("Create user service tests: new user registration form", () => {
       password: "teste123",
     };
 
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("O número de telefone inserido é inválido.")).toBeTruthy();
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(createUser.text.includes("O número de telefone inserido é inválido.")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create a new user: password field is required", async () => {
@@ -167,9 +215,14 @@ describe("Create user service tests: new user registration form", () => {
       password: "",
     };
 
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("O campo senha é obrigatório.")).toBeTruthy();
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(createUser.text.includes("O campo senha é obrigatório.")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create a new user: password field is invalid", async () => {
@@ -180,8 +233,15 @@ describe("Create user service tests: new user registration form", () => {
       password: "teste",
     };
 
-    const createUser = await createNewUser(user);
-    expect(createUser.statusCode).toEqual(422);
-    expect(createUser.text.includes("A senha deve conter seis ou mais caracteres.")).toBeTruthy();
+    try {
+      await createNewUser(user).then(createUser => {
+        expect(createUser.statusCode).toBe(422);
+        expect(
+          createUser.text.includes("A senha deve conter seis ou mais caracteres."),
+        ).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
   });
 });

@@ -15,24 +15,31 @@ afterAll(async () => {
 describe("Create user session service tests", () => {
   it("should create an user session", async () => {
     await connection.clear();
-    const doCreateNewUser = await createNewUser({});
+    try {
+      await createNewUser({}).then(createUser => {
+        expect(createUser.statusCode).toBe(201);
+        expect(createUser.text.includes("Conta criada com sucesso!")).toBeTruthy();
+      });
+    } catch (error) {
+      return false;
+    }
+
     const newUser = {
       phone: "(11) 11111-1111",
       password: "teste123",
     };
 
-    if (doCreateNewUser.statusCode === 201) {
-      const userLoginData = {
-        phone: newUser.phone,
-        password: newUser.password,
-      };
+    const userLoginData = {
+      phone: newUser.phone,
+      password: newUser.password,
+    };
 
-      const createNewUserSession = await Promise.resolve(
-        supertest(app).post("/login").send(userLoginData),
-      );
-
+    try {
+      const createNewUserSession = await supertest(app).post("/login").send(userLoginData);
       expect(createNewUserSession.statusCode).toBe(302);
       expect(createNewUserSession.header.location).toBe("/my-account");
+    } catch (error) {
+      return false;
     }
   });
 
@@ -43,11 +50,15 @@ describe("Create user session service tests", () => {
       password: "teste123",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
-    expect(createUserSession.statusCode).toBe(401);
-    expect(
-      createUserSession.text.includes("O número de telefone ou senha está incorreto."),
-    ).toBeTruthy();
+    try {
+      const createUserSession = await supertest(app).post("/login").send(userLoginData);
+      expect(createUserSession.statusCode).toBe(401);
+      expect(
+        createUserSession.text.includes("O número de telefone ou senha está incorreto."),
+      ).toBeTruthy();
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create an user session: empty credentials", async () => {
@@ -56,11 +67,15 @@ describe("Create user session service tests", () => {
       password: "",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
-    expect(createUserSession.statusCode).toBe(401);
-    expect(
-      createUserSession.text.includes("Um ou mais valores inseridos são inválidos."),
-    ).toBeTruthy();
+    try {
+      const createUserSession = await supertest(app).post("/login").send(userLoginData);
+      expect(createUserSession.statusCode).toBe(401);
+      expect(
+        createUserSession.text.includes("Um ou mais valores inseridos são inválidos."),
+      ).toBeTruthy();
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create an user session: empty password input", async () => {
@@ -69,9 +84,13 @@ describe("Create user session service tests", () => {
       password: "",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
-    expect(createUserSession.statusCode).toBe(401);
-    expect(createUserSession.text.includes("A senha inserida é inválida.")).toBeTruthy();
+    try {
+      const createUserSession = await supertest(app).post("/login").send(userLoginData);
+      expect(createUserSession.statusCode).toBe(401);
+      expect(createUserSession.text.includes("A senha inserida é inválida.")).toBeTruthy();
+    } catch (error) {
+      return false;
+    }
   });
 
   it("should not create an user session: empty phone input", async () => {
@@ -80,10 +99,14 @@ describe("Create user session service tests", () => {
       password: "teste123",
     };
 
-    const createUserSession = await supertest(app).post("/login").send(userLoginData);
-    expect(createUserSession.statusCode).toBe(401);
-    expect(
-      createUserSession.text.includes("O número de telefone inserido é inválido."),
-    ).toBeTruthy();
+    try {
+      const createUserSession = await supertest(app).post("/login").send(userLoginData);
+      expect(createUserSession.statusCode).toBe(401);
+      expect(
+        createUserSession.text.includes("O número de telefone inserido é inválido."),
+      ).toBeTruthy();
+    } catch (error) {
+      return false;
+    }
   });
 });

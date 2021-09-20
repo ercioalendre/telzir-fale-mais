@@ -21,6 +21,7 @@ export default async function createNewUser({
     password,
   };
 
-  const doCreate = await Promise.resolve(supertest(app).post("/signup").send(newUser));
-  return doCreate;
+  return new Promise(resolve => {
+    resolve(supertest(app).post("/signup").send(newUser));
+  });
 }
