@@ -3,6 +3,11 @@ const buttonCloseErrorWrapper = document.getElementById("close-error");
 const closeCalcResults = document.getElementById("close-calc-results-wrapper");
 const inputCallRoute = document.getElementById("callRoute");
 const inputRouteDescription = document.getElementById("routeDescription");
+const buttonGoToMyAccount = document.getElementById("go-to-my-account");
+
+if (buttonGoToMyAccount) {
+  buttonGoToMyAccount.addEventListener("click", () => (window.location.href = "/my-account"));
+}
 
 if (closeCalcResults) {
   closeCalcResults.addEventListener("click", () => removeCalcResultsWrapper());
