@@ -1,6 +1,5 @@
 import "dotenv/config";
 import "reflect-metadata";
-import "@shared/typeorm";
 import "express-async-errors";
 import cors from "cors";
 import routes from "@MainRoutes";

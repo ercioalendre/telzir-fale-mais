@@ -10,7 +10,7 @@ const database =
     ? "./src/__tests__/database/falemais.sqlite"
     : process.env.TYPEORM_DB_DATABASE;
 
-module.exports = {
+export default {
   type: process.env.TYPEORM_DB_TYPE,
   host: process.env.TYPEORM_DB_HOST,
   port: process.env.TYPEORM_DB_PORT,
