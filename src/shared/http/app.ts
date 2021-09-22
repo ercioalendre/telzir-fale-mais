@@ -8,37 +8,35 @@ import path from "path";
 import AppError, { isOperationalError } from "@shared/errors/AppError";
 import express, { Express, NextFunction, Request, Response } from "express";
 import cookieParser from "cookie-parser";
-
-process.on("unhandledRejection", error => {
-  throw error;
-});
-
-process.on("uncaughtException", error => {
-  console.error(error);
-
-  if (!isOperationalError(error)) {
-    process.exit(1);
-  }
-});
+import helmet from "helmet";
 
 class AppController {
   express: Express;
 
   constructor() {
+    process.on("unhandledRejection", error => {
+      throw error;
+    });
+
+    process.on("uncaughtException", error => {
+      console.error(error);
+
+      if (!isOperationalError(error)) {
+        process.exit(1);
+      }
+    });
+
     this.express = express();
     this.express.set("view engine", "ejs");
     this.express.use(express.static("public"));
     this.express.set("views", path.join(__dirname, "views"));
     this.express.use(express.urlencoded({ extended: true }));
+    this.express.use(express.json());
+    this.express.use(helmet());
+    this.express.use(cors());
     this.express.use(cookieParser());
-    this.middlewares();
     this.routes();
     this.errorHandler();
-  }
-
-  middlewares() {
-    this.express.use(express.json());
-    this.express.use(cors());
   }
 
   routes() {
